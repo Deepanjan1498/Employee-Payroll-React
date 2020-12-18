@@ -42,8 +42,22 @@ const PayrollForm = (props) => {
     }
 }
 const [formValue, setForm] = useState(initialValue);
+const params = useParams();
 const employeeService = new EmployeeService();   
-    const changeValue = (event) => {
+const setData = (obj) => {
+    let array = obj.startDate.split(" ");
+    setForm({
+      ...formValue,
+      ...obj,
+      departMentValue: obj.departMent,
+      isUpdate: true,
+      day: array[0],
+      month: array[1],
+      year: array[2],
+    });
+  };
+
+const changeValue = (event) => {
         setForm({ ...formValue, [event.target.name]: event.target.value })
     }
     
@@ -97,6 +111,10 @@ const employeeService = new EmployeeService();
 
     const save = async (event) => {
         event.preventDefault();
+        if(await validData()){
+            console.log("error", formValue);
+            return;
+        }
         let object = {
             name: formValue.name,
             departMent: formValue.departMentValue,
@@ -139,7 +157,7 @@ const employeeService = new EmployeeService();
             <div className="row-content">
             <label className="label text" htmlFor ="name">Name</label>
             <input className="input" type="text" id="name" name="name" value={formValue.name} onChange={changeValue} placeholder="Enter name here" required/>
-            </div><div className="error-output">{formValue.error.name}</div> 
+            </div><div className="error">{formValue.error.name}</div> 
         
         
         <div className = "row-content">
@@ -167,7 +185,7 @@ const employeeService = new EmployeeService();
                         </label>
                     </div>
                 </div>
-                <div className="error-output">{formValue.error.profileUrl}</div>
+                <div className="error">{formValue.error.profileUrl}</div>
                 <div className = "row-content">
                     <label className = "label text" htmlFor = "gender">Gender</label>
                     <div>
@@ -177,7 +195,7 @@ const employeeService = new EmployeeService();
                         <label className = "text" htmlFor = "female">Female</label>                       
                     </div>
                 </div>
-                <div className="error-output">{formValue.error.gender}</div>
+                <div className="error">{formValue.error.gender}</div>
                 <div className = "row-content">
                     <label className = "label text" htmlFor = "department">Department</label>
                     <div>
@@ -190,13 +208,14 @@ const employeeService = new EmployeeService();
                         ))}
                         </div>
                 </div>
-                <div className="error-output">{formValue.error.department}</div>
+                <div className="error">{formValue.error.department}</div>
                 <div className = "row-content">
-                    <label className = "label text" htmlFor = "salary">Choose your salary:</label>
-                    <input className = "slider" type = "range" onChange={changeValue} min = "300000" max = "500000" step = "100"
-                           name = "salary" id = "salary" value = {formValue.salary} />
-                    <output className = "salary-output text" htmlFor = "salary">400000</output>
-                </div>
+                <label className="label text" htmlFor="salary">Salary</label>
+                        <input className="input" type="range" onChange={changeValue} id="salary" value={formValue.salary} name="salary" placeholder="Salary"
+                        min="1000" max="10000" step="100"/>
+                    </div>
+                    <div className="error" > {formValue.error.salary} </div>
+
                 <div className = "row-content">
                     <label className = "label text" htmlFor = "startDate">StartDate</label>
                       <div id = "date">
@@ -256,7 +275,7 @@ const employeeService = new EmployeeService();
                         </select>
                     </div>
                     </div>
-                    <div className="error-output">{formValue.error.startDate}</div>
+                    <div className="error">{formValue.error.startDate}</div>
                 
                 
                 <div className = "row-content">
