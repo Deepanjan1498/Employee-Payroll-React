@@ -1,30 +1,6 @@
 {
   "employee": [
     {
-      "name": "Mihir",
-      "departMent": [
-        "Engineer"
-      ],
-      "gender": "male",
-      "salary": "5000",
-      "startDate": "1 May 2020",
-      "notes": "",
-      "id": 1604589594368,
-      "profileUrl": "../payroll-form/assets/profile-images/Ellipse -3.png'"
-    },
-    {
-      "name": "Leena",
-      "departMent": [
-        "HR"
-      ],
-      "gender": "female",
-      "salary": "363900",
-      "startDate": "1 Jan 2020",
-      "notes": "test",
-      "id": 1604589594369,
-      "profileUrl": "../assets/profile-images/Ellipse -7.png"
-    },
-    {
       "name": "Devyani",
       "departMent": [
         "HR"
@@ -34,6 +10,30 @@
       "startDate": "1 Jan 2020",
       "notes": "started",
       "id": 1604589594370,
+      "profileUrl": "../assets/profile-images/Ellipse -1.png"
+    },
+    {
+      "name": "Leena",
+      "departMent": [
+        "Sales"
+      ],
+      "gender": "female",
+      "salary": "2600",
+      "startDate": "1 Jan 2020",
+      "notes": "add",
+      "id": 1604589594371,
+      "profileUrl": "../assets/profile-images/Ellipse -1.png"
+    },
+    {
+      "name": "Manisha",
+      "departMent": [
+        "Sales"
+      ],
+      "gender": "female",
+      "salary": "2200",
+      "startDate": "1 Jan 2020",
+      "notes": "test",
+      "id": 1604589594372,
       "profileUrl": "../assets/profile-images/Ellipse -1.png"
     }
   ]
