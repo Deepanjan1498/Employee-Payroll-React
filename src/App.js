@@ -1,15 +1,21 @@
-
+import React from 'react';
 import './App.css';
-
-function App() {
-  return (
-    <div className="App">
-        <p>
-         <h1> Hello Employee!</h1>
-        </p>
-        
-    </div>
-  );
-}
+import PayrollForm from './component/payroll-form/payroll-form'
+import { BrowserRouter as Router, Switch, Route} from "react-router-dom";
+class App extends React.Component{
+  render(){
+    return(
+      <div>
+      <Router>
+      <Switch>
+      <Route path ="/employee">
+      <PayrollForm />
+      </Route>
+      </Switch>
+      </Router>
+      </div>
+    );
+    }
+  }
 
 export default App;

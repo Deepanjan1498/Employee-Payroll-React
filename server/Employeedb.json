@@ -1,0 +1,28 @@
+{
+  "employee": [
+    {
+      "name": "Mihir",
+      "departMent": [
+        "Engineer"
+      ],
+      "gender": "male",
+      "salary": "5000",
+      "startDate": "1 May 2020",
+      "notes": "",
+      "id": 1604589594368,
+      "profileUrl": "../payroll-form/assets/profile-images/Ellipse -3.png'"
+    },
+    {
+      "name": "Leena",
+      "departMent": [
+        "HR"
+      ],
+      "gender": "female",
+      "salary": "363900",
+      "startDate": "1 Jan 2020",
+      "notes": "test",
+      "id": 1604589594369,
+      "profileUrl": "../assets/profile-images/Ellipse -7.png"
+    }
+  ]
+}
