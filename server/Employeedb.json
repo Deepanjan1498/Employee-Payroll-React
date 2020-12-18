@@ -23,6 +23,18 @@
       "notes": "test",
       "id": 1604589594369,
       "profileUrl": "../assets/profile-images/Ellipse -7.png"
+    },
+    {
+      "name": "Devyani",
+      "departMent": [
+        "HR"
+      ],
+      "gender": "female",
+      "salary": "478600",
+      "startDate": "1 Jan 2020",
+      "notes": "started",
+      "id": 1604589594370,
+      "profileUrl": "../assets/profile-images/Ellipse -1.png"
     }
   ]
 }
