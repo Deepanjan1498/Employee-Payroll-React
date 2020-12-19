@@ -4,7 +4,7 @@ class AxiosService {
     postService(url , data){
         return axios({
             method: 'post',
-            url: 'http://localhost:4000/employee',
+            url: url,
             data: data
         })
     }
@@ -12,8 +12,8 @@ class AxiosService {
         return axios.put(url, payload, tokenRequired && httpOptions);
     }
 
-    deleteService(url = "", tokenRequired = false, httpOptions = null) {
-        return axios.delete(url, tokenRequired && httpOptions);
+    deleteService(url = "") {
+        return axios.delete(url);
     }
 
     getService(url = "", tokenRequired = false, httpOptions = null) {

@@ -67,7 +67,8 @@ const setData = (obj) => {
     setForm({
       ...formValue,
       ...obj,
-      departMentValue: obj.departMent,
+      profileUrl: obj.profile,
+      departMentValue: obj.department,
       isUpdate: true,
       day: array[0],
       month: array[1],
@@ -133,15 +134,21 @@ const changeValue = (event) => {
             console.log("error", formValue);
             return;
         }
+//         var dept = [];
+// for (let i =0 ;i<formValue.departMentValue.length;i++){
+//     dept.push({department:formValue.departMentValue[i]})
+// }
+        var dept = formValue.departMentValue.map((data) => {
+            return {"department" : data}})
         let object = {
             name: formValue.name,
-            departMent: formValue.departMentValue,
+            department: dept,
             gender: formValue.gender,
             salary: formValue.salary,
             startDate: `${formValue.day} ${formValue.month} ${formValue.year}`,
             notes: formValue.notes,
             id: formValue.id,
-            profileUrl: formValue.profileUrl,
+            profile: formValue.profileUrl,
           };
           if (formValue.isUpdate) {
             employeeService

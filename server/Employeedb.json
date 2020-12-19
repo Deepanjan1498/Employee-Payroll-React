@@ -1,40 +1,42 @@
 {
   "employee": [
     {
-      "name": "Devyani",
-      "departMent": [
+      "name": "Leena",
+      "department": [
+        "Sales",
         "HR"
       ],
       "gender": "female",
-      "salary": "478600",
+      "salary": "2000",
       "startDate": "1 Jan 2020",
-      "notes": "started",
-      "id": 1604589594370,
-      "profileUrl": "../assets/profile-images/Ellipse -1.png"
+      "notes": "START",
+      "id": 1604589594373,
+      "profile": "../assets/profile-images/Ellipse -7.png"
     },
     {
-      "name": "Leena",
-      "departMent": [
+      "name": "Devika",
+      "department": [
         "Sales"
       ],
       "gender": "female",
-      "salary": "2600",
+      "salary": "2100",
       "startDate": "1 Jan 2020",
-      "notes": "add",
-      "id": 1604589594371,
-      "profileUrl": "../assets/profile-images/Ellipse -1.png"
+      "notes": "",
+      "id": 1604589594374,
+      "profile": "../assets/profile-images/Ellipse -7.png"
     },
     {
-      "name": "Manisha",
-      "departMent": [
-        "Sales"
+      "name": "Rahul",
+      "department": [
+        "HR",
+        "Finance"
       ],
-      "gender": "female",
-      "salary": "2200",
+      "gender": "male",
+      "salary": "2700",
       "startDate": "1 Jan 2020",
-      "notes": "test",
-      "id": 1604589594372,
-      "profileUrl": "../assets/profile-images/Ellipse -1.png"
+      "notes": "added",
+      "id": 1604589594375,
+      "profile": "../assets/profile-images/Ellipse -3.png"
     }
   ]
 }

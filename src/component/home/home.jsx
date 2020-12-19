@@ -5,7 +5,6 @@ import "./home.scss";
 import EmployeeService from "../../services/employee-service"
 import Display from "../display/display"
 import logo from "../payroll-form/assets/images/logo.png"
-import { Link } from "react-router-dom";
 export default class Home extends React.Component {
   constructor(props) {
     super(props);
@@ -80,9 +79,10 @@ export default class Home extends React.Component {
                 />
                 <img className="search-icon" src={searchIcon} alt="" />
               </div>
-              <Link to="payroll-form" className="add-button flex-row-center">
-                <img src={addIcon} alt="" /> Add User
-              </Link>
+              <div>
+              <a href = "http://localhost:3000/employee"
+                button type="submit" className="add-button flex-row-center"/>
+                </div>
             </div>
           </div>
           <div className="table-main">
