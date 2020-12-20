@@ -80,8 +80,9 @@ export default class Home extends React.Component {
                 <img className="search-icon" src={searchIcon} alt="" />
               </div>
               <div>
-              <a href = "http://localhost:3000/employee"
-                button type="submit" className="add-button flex-row-center"/>
+              <a href = "http://localhost:3000/employee">
+                <img className="add-button flex-row-center" src={addIcon} alt="Add User"></ img>
+                </a>    
                 </div>
             </div>
           </div>

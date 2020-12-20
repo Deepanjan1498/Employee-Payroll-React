@@ -48,13 +48,13 @@ const Display = (props) => {
                 <td><img className="profile" 
                 src={
                   element.profile ===
-                  "../payroll-form/assets/profile-images/Ellipse -1.png"
+                  "../assets/profile-images/Ellipse -1.png"
                     ? p
                     : element.profile ===
-                      "../payroll-form/assets/profile-images/Ellipse -3.png"
+                      "../assets/profile-images/Ellipse -3.png"
                     ? p1
                     : element.profile ===
-                      "../payroll-form/assets/profile-images/Ellipse -7.png"
+                      "../assets/profile-images/Ellipse -7.png"
                     ? p2
                     : p3
                 }
@@ -65,9 +65,8 @@ const Display = (props) => {
                 <td className="gender">{element.gender}</td>
                 <td>
                  {/* // {element.department && */}
-                   { element.department.map((dept) => {
-                      (<div className="dept-label">Sales</div>)
-})}
+                   { element.department.map((dept) => dept.department
+)}
                 </td>
                 <td> ₹ {element.salary}</td>
                 <td>{element.startDate}</td>

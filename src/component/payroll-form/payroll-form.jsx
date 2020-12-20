@@ -19,9 +19,10 @@ const PayrollForm = (props) => {
             {url: '../payroll-form/assets/profile-images/Ellipse 1.png' }
         ],
         allDepartment: [
-            'HR', "Sales", 'Finance', 'Engineer', 'Others'
-        ],
+            {"department":'HR',"id":1},{ "department":'Sales',"id":2}, {"department":'Engineer',"id":3},
+            {"department":'Finance',"id":4},{"department":'Others',"id":5}  ],
         departMentValue: [],
+
         gender: '',
         salary: '',
         day: '1',
@@ -29,7 +30,7 @@ const PayrollForm = (props) => {
         year: '2020',
         startDate: '',
         notes: '',
-        id: '',
+        //id: '',
         profileUrl: '',
         isUpdate: false,
         error: {
@@ -48,7 +49,7 @@ useEffect(() => {
     if (params.id) {
       getDataById(params.id);
     }
-  }, []);
+  });
 
   const getDataById = (id) => {
     employeeService
@@ -81,6 +82,7 @@ const changeValue = (event) => {
     }
     
     const onCheckChange = (name) => {
+        console.log(name);
         let index = formValue.departMentValue.indexOf(name);
         let checkArray = [...formValue.departMentValue]
         if (index > -1)
@@ -134,22 +136,22 @@ const changeValue = (event) => {
             console.log("error", formValue);
             return;
         }
-//         var dept = [];
-// for (let i =0 ;i<formValue.departMentValue.length;i++){
-//     dept.push({department:formValue.departMentValue[i]})
-// }
-        var dept = formValue.departMentValue.map((data) => {
-            return {"department" : data}})
+
+        
         let object = {
             name: formValue.name,
-            department: dept,
+
+            department: [],
             gender: formValue.gender,
             salary: formValue.salary,
             startDate: `${formValue.day} ${formValue.month} ${formValue.year}`,
             notes: formValue.notes,
             id: formValue.id,
             profile: formValue.profileUrl,
-          };
+        };
+        formValue.departMentValue.map((data) => {
+            object.department.push(data)});
+          console.log(object);
           if (formValue.isUpdate) {
             employeeService
               .updateEmployee(object)
@@ -238,10 +240,10 @@ const changeValue = (event) => {
                     <label className = "label text" htmlFor = "department">Department</label>
                     <div>
                         {formValue.allDepartment.map(name =>(
-                            <span key ={name}>
-                                <input className = "checkbox" type = "checkbox" onChange={() => onCheckChange(name)} name = {name} 
-                                checked={getChecked(name)} value ={name} />
-                        <label className = "text" htmlFor ={name}>{name}</label>
+                            <span key ={name.department}>
+                                <input className = "checkbox" type = "checkbox" onChange={() => onCheckChange(name)} name = {name.department} 
+                                checked={getChecked(name)} value ={name.department} />
+                        <label className = "text" htmlFor ={name.department}>{name.department}</label>
                             </span>
                         ))}
                         </div>
@@ -250,7 +252,8 @@ const changeValue = (event) => {
                 <div className = "row-content">
                 <label className="label text" htmlFor="salary">Salary</label>
                         <input className="input" type="range" onChange={changeValue} id="salary" value={formValue.salary} name="salary" placeholder="Salary"
-                        min="1000" max="10000" step="100"/>
+                        min="1000" max="100000" step="100"/>
+                        <output className="salary-output text" htmlFor="salary">{formValue.salary}</output>
                     </div>
                     <div className="error" > {formValue.error.salary} </div>
 
