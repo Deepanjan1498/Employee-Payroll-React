@@ -191,6 +191,7 @@ const changeValue = (event) => {
                 </div>
             </div>
         </header>
+        <div className = "payroll-main">
         <div className ="form-content" id = "formId">
         <form className = "form" action = "#" onReset = "resetForm()" onSubmit = {save}>
         <div className="form-head">Employee Payroll Form </div>
@@ -333,6 +334,7 @@ const changeValue = (event) => {
                         </div>
                     </form>
                 </div>
+            </div>
             </div>
         );
     }

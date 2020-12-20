@@ -63,10 +63,11 @@ const Display = (props) => {
                 </td>
                 <td>{element.name}</td>
                 <td className="gender">{element.gender}</td>
-                <td>
-                 {/* // {element.department && */}
-                   { element.department.map((dept) => dept.department
-)}
+                <td >
+              
+                 {element.department && 
+                    element.department.map(dept =>(<div className='dept-label'>{dept.department}</div>))}
+
                 </td>
                 <td> ₹ {element.salary}</td>
                 <td>{element.startDate}</td>

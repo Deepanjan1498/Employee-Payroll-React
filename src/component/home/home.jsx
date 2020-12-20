@@ -53,8 +53,8 @@ export default class Home extends React.Component {
   render() {
     return (
       <div>
-        <header className='header row center'>
-                <div className="logo">
+        <header className='header-content header'>
+                <div className="logo-content">
                     <img src={logo} alt="" />
                     <div>
                         <span className="emp-text">EMPLOYEE</span> <br />
