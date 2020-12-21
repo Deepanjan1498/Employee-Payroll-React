@@ -25,9 +25,9 @@ const PayrollForm = (props) => {
 
         gender: '',
         salary: '',
-        day: '1',
-        month: 'Jan',
-        year: '2020',
+        Day: '1',
+        Month: 'Jan',
+        Year: '2020',
         startDate: '',
         notes: '',
         //id: '',
@@ -46,17 +46,18 @@ const [formValue, setForm] = useState(initialValue);
 const params = useParams();
 const employeeService = new EmployeeService();   
 useEffect(() => {
-    if (params.id) {
-      getDataById(params.id);
-    }
-  });
+    // if (params.id) {
+     getDataById(params.id);
+    // }
+  },[]
+  );
 
   const getDataById = (id) => {
     employeeService
       .getEmployee(id)
       .then((data) => {
-        console.log("data is ", data.data);
-        let obj = data.data;
+        console.log("data is ", data.data.obj);
+        let obj = data.data.obj;
         setData(obj);
       })
       .catch((err) => {
@@ -65,19 +66,36 @@ useEffect(() => {
   };
 const setData = (obj) => {
     let array = obj.startDate.split(" ");
+   //setForm(previous => obj)
+    console.log(obj.obj)
     setForm({
       ...formValue,
-      ...obj,
+      obj,
+      name : obj.name,
+      gender:obj.gender,
+      salary: obj.salary,
       profileUrl: obj.profile,
       departMentValue: obj.department,
+      notes: obj.notes,
       isUpdate: true,
-      day: array[0],
-      month: array[1],
-      year: array[2],
-    });
+      Day: array[0],
+     Month: array[1],
+     Year: array[2],
+   });
   };
+//  const onNameChange = (event) => {
+//     console.log("value is ", event.target.value);
+//     const nameRegex = RegExp('^[A-Z]{1}[a-zA-Z\\s]{2,}$');
+//     this.setData({name: event.target.value})
+//     if (nameRegex.test(event.target.value)){
+//       this.setData({ nameError: ''})
+//     }else{
+//       this.setData({ nameError: 'Name is Incorrect'})
+//     }
 
+  
 const changeValue = (event) => {
+    console.log(event.target.name+"=="+event.target.value);
         setForm({ ...formValue, [event.target.name]: event.target.value })
     }
     
@@ -144,19 +162,22 @@ const changeValue = (event) => {
             department: [],
             gender: formValue.gender,
             salary: formValue.salary,
-            startDate: `${formValue.day} ${formValue.month} ${formValue.year}`,
+            startDate: `${formValue.Day} ${formValue.Month} ${formValue.Year}`,
             notes: formValue.notes,
             id: formValue.id,
             profile: formValue.profileUrl,
         };
+        console.log(object.startDate);
         formValue.departMentValue.map((data) => {
             object.department.push(data)});
           console.log(object);
+          object.id = params.id
           if (formValue.isUpdate) {
             employeeService
               .updateEmployee(object)
               .then((data) => {
                 console.log("data after update", data);
+
                 props.history.push("");
               })
               .catch((err) => {
@@ -177,6 +198,7 @@ const changeValue = (event) => {
         
     const reset = () => {
         setForm({ ...initialValue, id: formValue.id, isUpdate: formValue.isUpdate });
+        console.log(this.props);
 
         console.log(formValue);
     }
@@ -198,6 +220,7 @@ const changeValue = (event) => {
             <div className="row-content">
             <label className="label text" htmlFor ="name">Name</label>
             <input className="input" type="text" id="name" name="name" value={formValue.name} onChange={changeValue} placeholder="Enter name here" required/>
+          {/* // // <span className = "error">{this.state.nameError}</span> */}
             </div><div className="error">{formValue.error.name}</div> 
         
         
@@ -261,7 +284,7 @@ const changeValue = (event) => {
                 <div className = "row-content">
                     <label className = "label text" htmlFor = "startDate">StartDate</label>
                       <div id = "date">
-                        <select onChange={changeValue} id = "day" name ="Day">
+                        <select onChange={changeValue} id = "Day" name ="Day">
                             <option value = "1">1</option>
                             <option value = "2">2</option>
                             <option value = "3">3</option>
@@ -294,7 +317,7 @@ const changeValue = (event) => {
                             <option value = "30">30</option>
                             <option value = "31">31</option>
                         </select>
-                        <select onChange={changeValue} id = "month" name = "Month">
+                        <select onChange={changeValue} id = "Month" name = "Month">
                             <option value = "Jan">January</option>
                             <option value = "Feb">February</option>
                             <option value = "March">March</option>
@@ -308,7 +331,7 @@ const changeValue = (event) => {
                             <option value = "Nov">November</option>
                             <option value = "Dec">December</option>
                         </select>
-                        <select onChange={changeValue} id = "year" name = "Year">
+                        <select onChange={changeValue} id = "Year" name = "Year">
                             <option value = "2020">2020</option>
                             <option value = "2019">2019</option>
                             <option value = "2018">2018</option>
