@@ -83,17 +83,17 @@ const setData = (obj) => {
      Year: array[2],
    });
   };
-//  const onNameChange = (event) => {
-//     console.log("value is ", event.target.value);
-//     const nameRegex = RegExp('^[A-Z]{1}[a-zA-Z\\s]{2,}$');
-//     this.setData({name: event.target.value})
-//     if (nameRegex.test(event.target.value)){
-//       this.setData({ nameError: ''})
-//     }else{
-//       this.setData({ nameError: 'Name is Incorrect'})
-//     }
 
-  
+var checkDept = (department) => {
+           let deptBool = false;
+           formValue.departMentValue.map(dept => {
+                           console.log('for '+formValue.departMentValue+''+dept,dept.department === department);
+                if(dept.department === department){
+                   deptBool = true
+                }
+               })
+               return ""+deptBool;
+       }
 const changeValue = (event) => {
     console.log(event.target.name+"=="+event.target.value);
         setForm({ ...formValue, [event.target.name]: event.target.value })
@@ -124,24 +124,24 @@ const changeValue = (event) => {
             startDate: ''
         }
         if (formValue.name.length < 1) {
-            error.name = 'name is required field'
+            error.name = 'Please Enter your name'
             isError = true;
         }
         if (formValue.gender.length < 1) {
-            error.gender = 'gender is required field'
+            error.gender = 'Select your gender'
             isError = true;
         }
         if (formValue.salary.length < 1) {
-            error.salary = 'salary is required field'
+            error.salary = 'Select the range from slider'
             isError = true;
         }
         if (formValue.profileUrl.length < 1) {
-            error.profileUrl = 'profile is required field'
+            error.profileUrl = 'Select profile image'
             isError = true;
         }
 
         if (formValue.departMentValue.length < 1) {
-            error.department = 'department is required field'
+            error.department = 'Select departments'
             isError = true;
         }
         await setForm({ ...formValue, error: error })
@@ -198,10 +198,14 @@ const changeValue = (event) => {
         
     const reset = () => {
         setForm({ ...initialValue, id: formValue.id, isUpdate: formValue.isUpdate });
-        console.log(this.props);
+        //console.log(this.props);
 
         console.log(formValue);
     }
+    // var option = [],
+    // optionState = this.props.optionState 
+    //     var selected = (optionState === option.value) ? true : false;
+
     return(
         <div>
       <header className = "header-content header">
@@ -218,14 +222,13 @@ const changeValue = (event) => {
         <form className = "form" action = "#" onReset = "resetForm()" onSubmit = {save}>
         <div className="form-head">Employee Payroll Form </div>
             <div className="row-content">
-            <label className="label text" htmlFor ="name">Name</label>
+            <label className="label text" htmlFor ="name">Name:</label>
             <input className="input" type="text" id="name" name="name" value={formValue.name} onChange={changeValue} placeholder="Enter name here" required/>
-          {/* // // <span className = "error">{this.state.nameError}</span> */}
             </div><div className="error">{formValue.error.name}</div> 
         
         
         <div className = "row-content">
-                    <label className = "label text" htmlFor = "profile">Profile Image</label>
+                    <label className = "label text" htmlFor = "profile">Profile Image:</label>
                     <div className = "profile-radio-content">
                         <label>
                             <input type = "radio" checked={formValue.profileUrl==='../assets/profile-images/Ellipse -1.png'} name = "profileUrl"
@@ -251,22 +254,22 @@ const changeValue = (event) => {
                 </div>
                 <div className="error">{formValue.error.profileUrl}</div>
                 <div className = "row-content">
-                    <label className = "label text" htmlFor = "gender">Gender</label>
+                    <label className = "label text" htmlFor = "gender">Gender:</label>
                     <div>
-                        <input type = "radio" id = "male" onChange={changeValue} name = "gender" value = "male" />
+                        <input type = "radio" checked ={formValue.gender==='male'} id = "male" onChange={changeValue} name = "gender" value = "male" />
                         <label className = "text" htmlFor = "male">Male</label>
-                        <input type = "radio" id = "female" onChange={changeValue} name = "gender" value = "female" />
+                        <input type = "radio" checked ={formValue.gender==='female'} id = "female" onChange={changeValue} name = "gender" value = "female" />
                         <label className = "text" htmlFor = "female">Female</label>                       
                     </div>
                 </div>
                 <div className="error">{formValue.error.gender}</div>
                 <div className = "row-content">
-                    <label className = "label text" htmlFor = "department">Department</label>
+                    <label className = "label text" htmlFor = "department">Department:</label>
                     <div>
                         {formValue.allDepartment.map(name =>(
                             <span key ={name.department}>
-                                <input className = "checkbox" type = "checkbox" onChange={() => onCheckChange(name)} name = {name.department} 
-                                checked={getChecked(name)} value ={name.department} />
+                                <input className = "checkbox" type = "checkbox"   onChange={() => onCheckChange(name)} name = {name.department} 
+                                checked={checkDept(name.department)==='true'} value ={name.department} />
                         <label className = "text" htmlFor ={name.department}>{name.department}</label>
                             </span>
                         ))}
@@ -274,7 +277,7 @@ const changeValue = (event) => {
                 </div>
                 <div className="error">{formValue.error.department}</div>
                 <div className = "row-content">
-                <label className="label text" htmlFor="salary">Salary</label>
+                <label className="label text" htmlFor="salary">Salary:</label>
                         <input className="input" type="range" onChange={changeValue} id="salary" value={formValue.salary} name="salary" placeholder="Salary"
                         min="1000" max="100000" step="100"/>
                         <output className="salary-output text" htmlFor="salary">{formValue.salary}</output>
@@ -282,9 +285,9 @@ const changeValue = (event) => {
                     <div className="error" > {formValue.error.salary} </div>
 
                 <div className = "row-content">
-                    <label className = "label text" htmlFor = "startDate">StartDate</label>
+                    <label className = "label text" htmlFor = "startDate">Start Date:</label>
                       <div id = "date">
-                        <select onChange={changeValue} id = "Day" name ="Day">
+                        <select value={formValue.Day} onChange={changeValue} id = "Day" name ="Day">
                             <option value = "1">1</option>
                             <option value = "2">2</option>
                             <option value = "3">3</option>
@@ -317,7 +320,7 @@ const changeValue = (event) => {
                             <option value = "30">30</option>
                             <option value = "31">31</option>
                         </select>
-                        <select onChange={changeValue} id = "Month" name = "Month">
+                        <select  value={formValue.Month} onChange={changeValue} id = "Month" name = "Month">
                             <option value = "Jan">January</option>
                             <option value = "Feb">February</option>
                             <option value = "March">March</option>
@@ -331,7 +334,7 @@ const changeValue = (event) => {
                             <option value = "Nov">November</option>
                             <option value = "Dec">December</option>
                         </select>
-                        <select onChange={changeValue} id = "Year" name = "Year">
+                        <select value={formValue.Year} onChange={changeValue} id = "Year" name = "Year">
                             <option value = "2020">2020</option>
                             <option value = "2019">2019</option>
                             <option value = "2018">2018</option>
@@ -344,12 +347,12 @@ const changeValue = (event) => {
                 
                 
                 <div className = "row-content">
-                    <label className = "label text" htmlFor = "notes">Notes</label>
+                    <label className = "label text" htmlFor = "notes">Notes:</label>
                     <textarea className = "input" onChange={changeValue} id = "notes" value={formValue.notes} name = "notes"
                               placeholder = "" ></textarea>
                 </div>
                 <div className="buttonParent">
-                            <Link to="" className="resetButton button cancelButton">cancel</Link>
+                            <Link to="" className="resetButton button cancelButton">Cancel</Link>
                             <div className="submit-reset">
                                 <button type="submit" className="button submitButton" id="submitButton">{formValue.isUpdate ? 'Update' : 'Submit'}</button>
                                 <button type="reset" onClick={reset} className="resetButton button">Reset</button>

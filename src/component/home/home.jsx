@@ -68,14 +68,7 @@ export default class Home extends React.Component {
             <div className="detail-text">
               Employee Details <div className="count"></div>
             </div>
-            
-            <div className="row center button-box">
-            <div>
-                <a href = "http://localhost:3000/employee"  className="add-button flex-row-center">
-                < img src={addIcon} alt="Add User" /> Add User</a>
-                  
-                </div>
-              <div className="search-box" onClick={this.openSearch}>
+            <div className="search-box" onClick={this.openSearch}>
                 <input
                   className={
                     "input " + (this.state.searchExpand && "input-expand")
@@ -86,6 +79,14 @@ export default class Home extends React.Component {
                 />
                 <img className="search-icon" src={searchIcon} alt="" />
               </div>
+            <div className="row center button-box">
+              
+            <div>
+                <a href = "http://localhost:3000/employee"  className="add-button flex-row-center">
+                < img src={addIcon} alt="Add User" /> Add User</a>
+                  
+                </div>
+              
               
             </div>
           </div>

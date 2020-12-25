@@ -87,6 +87,7 @@ label{
     font-size: 16px;
     opacity: 1;
     font-family: Roboto;
+    text-align: left;
 }
 
 .input{
@@ -136,7 +137,7 @@ select {
     font-size: 20px;
     font-family: Roboto;
     letter-spacing: 0px;
-    color: #5f4242;
+    color: #ffffff;
     opacity: 1;
     background: transparent;
     border: none;
@@ -149,11 +150,15 @@ select {
 
 .submitButton {
     border: none;
-    background-color: #f5f5f5;
-    margin-right: 10px;
+    background-color:green;
+    margin-right: 30px;
     }
+    .resetButton {
+        background-color: #42515f;
+      }
 
 .cancelButton {
+    background-color: red;
     text-decoration: none;
     text-align: center;
 }
