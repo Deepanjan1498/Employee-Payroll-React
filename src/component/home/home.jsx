@@ -66,7 +66,7 @@ export default class Home extends React.Component {
         <div className="column content">
           <div className="emp-detail">
             <div className="detail-text">
-              Employee Details <div className="count"></div>
+              Employee Details <div className="count">{this.state.employeeArray.length}</div>
             </div>
             <div className="search-box" onClick={this.openSearch}>
                 <input
@@ -75,7 +75,7 @@ export default class Home extends React.Component {
                   }
                   onChange={this.search}
                   type="text"
-                  placeholder=""
+                  placeholder="Enter name to search"
                 />
                 <img className="search-icon" src={searchIcon} alt="" />
               </div>

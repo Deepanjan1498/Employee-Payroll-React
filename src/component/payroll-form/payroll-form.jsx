@@ -18,13 +18,15 @@ const PayrollForm = (props) => {
             {url: '../payroll-form/assets/profile-images/Ellipse -7.png'},
             {url: '../payroll-form/assets/profile-images/Ellipse 1.png' }
         ],
-        allDepartment: [
-            {"department":'HR',"id":1},{ "department":'Sales',"id":2}, {"department":'Engineer',"id":3},
-            {"department":'Finance',"id":4},{"department":'Others',"id":5}  ],
-        departMentValue: [],
-
+        // allDepartment: [
+        //     {"department":'HR',"id":1},{ "department":'Sales',"id":2}, {"department":'Engineer',"id":3},
+        //     {"department":'Finance',"id":4},{"department":'Others',"id":5}  ],
+        departMentValue: [
+            {"department":'HR',"id":1, isChecked:false},{ "department":'Sales',"id":2, isChecked:false}, {"department":'Engineer',"id":3, isChecked:false},
+            {"department":'Finance',"id":4, isChecked:false},{"department":'Others',"id":5, isChecked:false}
+        ],
         gender: '',
-        salary: '',
+        salary: '50000',
         Day: '1',
         Month: 'Jan',
         Year: '2020',
@@ -43,12 +45,16 @@ const PayrollForm = (props) => {
     }
 }
 const [formValue, setForm] = useState(initialValue);
+const [errorValue,setError]= useState([]);
 const params = useParams();
+console.log(formValue.departMentValue)
 const employeeService = new EmployeeService();   
 useEffect(() => {
-    // if (params.id) {
+    setError({
+        nameerror:"",
+        startDateerror:"",
+            })
      getDataById(params.id);
-    // }
   },[]
   );
 
@@ -66,16 +72,27 @@ useEffect(() => {
   };
 const setData = (obj) => {
     let array = obj.startDate.split(" ");
-   //setForm(previous => obj)
-    console.log(obj.obj)
+    console.log(obj)
+    // let arrayname = obj.department.map(dept=>dept.department)
+    // let uncdepartment = initialValue.departMentValue
+    // for(let dept in obj.department){
+    //     if(arrayname.includes(dept.department)){
+    //         let newdept = {
+    //             department:dept.department,
+    //             id:dept.id,
+    //             isChecked:true
+    //         }
+    //        uncdepartment= initialValue.departMentValue.filter(dep=>dep.department == newdept.department).push(newdept)
+    //     }
+    // }
     setForm({
       ...formValue,
-      obj,
+      ...obj,
       name : obj.name,
       gender:obj.gender,
       salary: obj.salary,
       profileUrl: obj.profile,
-      departMentValue: obj.department,
+      departMentValue: initialValue.departMentValue,
       notes: obj.notes,
       isUpdate: true,
       Day: array[0],
@@ -84,34 +101,57 @@ const setData = (obj) => {
    });
   };
 
-var checkDept = (department) => {
-           let deptBool = false;
-           formValue.departMentValue.map(dept => {
-                           console.log('for '+formValue.departMentValue+''+dept,dept.department === department);
-                if(dept.department === department){
-                   deptBool = true
-                }
-               })
-               return ""+deptBool;
-       }
-const changeValue = (event) => {
+// var checkDept = (department) => {
+//            let deptBool = false;
+//            formValue.departMentValue.map(dept => {
+//                            console.log('for '+formValue.departMentValue+''+dept,dept.department === department);
+//                 if(dept.department === department){
+//                    deptBool = true
+//                 }
+//                })
+//                return ""+deptBool;
+//        }
+   const changeDepartmentHandler = (event) => {
+    let checkedDepartment = [...formValue.departMentValue]
+    console.log(checkedDepartment)
+     let index = formValue.departMentValue.findIndex(dept => dept.department == event.target.name)
+        checkedDepartment[index] = {...checkedDepartment[index],isChecked:!checkedDepartment[index].isChecked}
+        setForm({ ...formValue, departMentValue: checkedDepartment });
+    }
+    const nameRegex = RegExp("^[A-Z]{1}[a-zA-Z\\s]{2,}[A-Za-z\s]{0,}$");
+    const handleNameChange=(event) =>{
+            
+        setForm({...formValue,name: event.target.value});
+        if(nameRegex.test(event.target.value)){
+            
+            setError({...errorValue,nameerror: ""});
+          }else{
+            setError({...errorValue,nameerror: "Name should start with captal letter"});
+            
+          }
+          console.log({formValue})
+          console.log({errorValue})
+        
+}
+
+    const changeValue = (event) => {
     console.log(event.target.name+"=="+event.target.value);
         setForm({ ...formValue, [event.target.name]: event.target.value })
     }
     
-    const onCheckChange = (name) => {
-        console.log(name);
-        let index = formValue.departMentValue.indexOf(name);
-        let checkArray = [...formValue.departMentValue]
-        if (index > -1)
-            checkArray.splice(index, 1)
-        else
-            checkArray.push(name);
-        setForm({ ...formValue, departMentValue: checkArray });
-    }
-    const getChecked = (name) => {
-        return formValue.departMentValue && formValue.departMentValue.includes(name);
-    }
+    // const onCheckChange = (name) => {
+    //     console.log(name);
+    //     let index = formValue.departMentValue.indexOf(name);
+    //     let checkArray = [...formValue.departMentValue]
+    //     if (index > -1)
+    //         checkArray.splice(index, 1)
+    //     else
+    //         checkArray.push(name);
+    //     setForm({ ...formValue, departMentValue: checkArray });
+    // }
+    // const getChecked = (name) => {
+    //     return formValue.departMentValue && formValue.departMentValue.includes(name);
+    // }
 
     const validData = async () => {
         let isError = false;
@@ -149,6 +189,8 @@ const changeValue = (event) => {
     }
 
     const save = async (event) => {
+        let result = window.confirm("Add/Update new employee?")
+        if (result){
         event.preventDefault();
         if(await validData()){
             console.log("error", formValue);
@@ -159,7 +201,9 @@ const changeValue = (event) => {
         let object = {
             name: formValue.name,
 
-            department: [],
+            // department: [],
+             department: formValue.departMentValue.filter(dept => dept.isChecked == true),
+            //  .map(dept=>dept.department),
             gender: formValue.gender,
             salary: formValue.salary,
             startDate: `${formValue.Day} ${formValue.Month} ${formValue.Year}`,
@@ -168,11 +212,12 @@ const changeValue = (event) => {
             profile: formValue.profileUrl,
         };
         console.log(object.startDate);
-        formValue.departMentValue.map((data) => {
-            object.department.push(data)});
-          console.log(object);
+        // formValue.departMentValue.map((data) => {
+        //     object.department.push(data)});
+           
           object.id = params.id
           if (formValue.isUpdate) {
+            console.log(object);
             employeeService
               .updateEmployee(object)
               .then((data) => {
@@ -194,18 +239,17 @@ const changeValue = (event) => {
                 console.log("error occured while adding employee");
               });
           }
+        }
+        else{
+            window.location.reload();
+        }
           };
         
     const reset = () => {
         setForm({ ...initialValue, id: formValue.id, isUpdate: formValue.isUpdate });
-        //console.log(this.props);
-
         console.log(formValue);
     }
-    // var option = [],
-    // optionState = this.props.optionState 
-    //     var selected = (optionState === option.value) ? true : false;
-
+   
     return(
         <div>
       <header className = "header-content header">
@@ -223,8 +267,8 @@ const changeValue = (event) => {
         <div className="form-head">Employee Payroll Form </div>
             <div className="row-content">
             <label className="label text" htmlFor ="name">Name:</label>
-            <input className="input" type="text" id="name" name="name" value={formValue.name} onChange={changeValue} placeholder="Enter name here" required/>
-            </div><div className="error">{formValue.error.name}</div> 
+            <input className="input" type="text" id="name" name="name" value={formValue.name} onChange={handleNameChange} placeholder="Enter name here" required/>
+            </div><div className="error">{errorValue.nameerror}</div> 
         
         
         <div className = "row-content">
@@ -265,20 +309,30 @@ const changeValue = (event) => {
                 <div className="error">{formValue.error.gender}</div>
                 <div className = "row-content">
                     <label className = "label text" htmlFor = "department">Department:</label>
-                    <div>
-                        {formValue.allDepartment.map(name =>(
+                    {
+                            formValue.departMentValue.map(dept =>
+                                
+                                <div>
+                                    {console.log(dept)}
+                                    <input className="checkbox" type="checkbox"  name={dept.department} checked={dept.isChecked} value={dept.department} onChange={changeDepartmentHandler}/>
+                                <label class="text" htmlFor={dept.department}>{dept.department}</label>
+                                </div>)
+                        }
+                    {/* <div> 
+                         {formValue.allDepartment.map(name =>(
                             <span key ={name.department}>
                                 <input className = "checkbox" type = "checkbox"   onChange={() => onCheckChange(name)} name = {name.department} 
                                 checked={checkDept(name.department)==='true'} value ={name.department} />
                         <label className = "text" htmlFor ={name.department}>{name.department}</label>
                             </span>
                         ))}
-                        </div>
+                        
+                        </div> */}
                 </div>
                 <div className="error">{formValue.error.department}</div>
                 <div className = "row-content">
                 <label className="label text" htmlFor="salary">Salary:</label>
-                        <input className="input" type="range" onChange={changeValue} id="salary" value={formValue.salary} name="salary" placeholder="Salary"
+                        <input className="slider" type="range" onChange={changeValue} id="salary" value={formValue.salary} name="salary" placeholder="Salary"
                         min="1000" max="100000" step="100"/>
                         <output className="salary-output text" htmlFor="salary">{formValue.salary}</output>
                     </div>

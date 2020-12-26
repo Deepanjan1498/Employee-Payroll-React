@@ -54,6 +54,7 @@
         display: inline-block;
         font-weight: 300;
         margin-bottom: 8px;
+        margin-right: 5px;
       }
     }
     tr:not(:first-child) {
@@ -61,3 +62,8 @@
       border: 2px solid #e3e3e3;
     }
   }
+  td{
+  img:hover{
+    box-shadow: 0 0 11px rgba(33,33,33,.2); 
+  }
+}

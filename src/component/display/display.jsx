@@ -12,23 +12,34 @@ const Display = (props) => {
     const employeeService = new EmployeeService();
   
     const update = (employeeId) => {
+      let result = window.confirm("Confirm update?")
+    if (result) {
       props.history.push(`payroll-form/${employeeId}`);
-    };
+    }
+    else {
+      window.location.reload();
+    }
+  };
   
-    const remove = (employeeId) => {
+  const remove = (employeeId) => {
+    let result = window.confirm("Are you sure you want to delete?")
+    if (result) {
       employeeService
         .deleteEmployee(employeeId)
         .then((data) => {
           console.log("data after delete", data);
+          window.location.reload();
           props.getAllEmployee();
         })
         .catch((err) => {
           console.log("error after delete", err);
         });
+      window.location.reload();
+    }
+    else {
+      window.location.reload();
+    }
     };
-//     const d = { element.department.map((dept) => {
-//       (<div className="dept-label">ABC</div>)
-// })}
   
     return (
       <table id="display" className="display">
@@ -58,7 +69,7 @@ const Display = (props) => {
                     ? p2
                     : p3
                 }
-                alt=""
+                alt="element.profile"
               />
                 </td>
                 <td>{element.name}</td>
