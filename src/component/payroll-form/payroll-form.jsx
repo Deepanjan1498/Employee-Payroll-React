@@ -21,6 +21,9 @@ const PayrollForm = (props) => {
         // allDepartment: [
         //     {"department":'HR',"id":1},{ "department":'Sales',"id":2}, {"department":'Engineer',"id":3},
         //     {"department":'Finance',"id":4},{"department":'Others',"id":5}  ],
+        // allDepartment: [
+        //     {"department":'HR',"id":1},{ "department":'Sales',"id":2}, {"department":'Engineer',"id":3},
+        //     {"department":'Finance',"id":4},{"department":'Others',"id":5}  ],
         departMentValue: [
             {"department":'HR',"id":1, isChecked:false},{ "department":'Sales',"id":2, isChecked:false}, {"department":'Engineer',"id":3, isChecked:false},
             {"department":'Finance',"id":4, isChecked:false},{"department":'Others',"id":5, isChecked:false}
@@ -92,7 +95,8 @@ const setData = (obj) => {
       gender:obj.gender,
       salary: obj.salary,
       profileUrl: obj.profile,
-      departMentValue: initialValue.departMentValue,
+      //departMentValue:obj.department,
+     departMentValue: initialValue.departMentValue,
       notes: obj.notes,
       isUpdate: true,
       Day: array[0],
@@ -180,7 +184,7 @@ const setData = (obj) => {
             isError = true;
         }
 
-        if (formValue.departMentValue.length < 1) {
+        if (false) {
             error.department = 'Select departments'
             isError = true;
         }
@@ -196,14 +200,19 @@ const setData = (obj) => {
             console.log("error", formValue);
             return;
         }
+        let ucdepartment = []; 
+        formValue.departMentValue.filter(dept =>{
+            if(dept.isChecked==true){
+        ucdepartment.push({"id":dept.id, "department":dept.department});
+            }})
+        
 
         
         let object = {
             name: formValue.name,
 
             // department: [],
-             department: formValue.departMentValue.filter(dept => dept.isChecked == true),
-            //  .map(dept=>dept.department),
+            department: ucdepartment,
             gender: formValue.gender,
             salary: formValue.salary,
             startDate: `${formValue.Day} ${formValue.Month} ${formValue.Year}`,
@@ -211,7 +220,8 @@ const setData = (obj) => {
             id: formValue.id,
             profile: formValue.profileUrl,
         };
-        console.log(object.startDate);
+
+        console.log(object);
         // formValue.departMentValue.map((data) => {
         //     object.department.push(data)});
            
@@ -229,6 +239,7 @@ const setData = (obj) => {
                 console.log("Error after update");
               });
           } else {
+              console.log(object)
             employeeService
               .addEmployee(object)
               .then((data) => {
