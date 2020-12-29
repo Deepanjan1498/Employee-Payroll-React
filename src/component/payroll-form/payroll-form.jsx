@@ -18,12 +18,6 @@ const PayrollForm = (props) => {
             {url: '../payroll-form/assets/profile-images/Ellipse -7.png'},
             {url: '../payroll-form/assets/profile-images/Ellipse 1.png' }
         ],
-        // allDepartment: [
-        //     {"department":'HR',"id":1},{ "department":'Sales',"id":2}, {"department":'Engineer',"id":3},
-        //     {"department":'Finance',"id":4},{"department":'Others',"id":5}  ],
-        // allDepartment: [
-        //     {"department":'HR',"id":1},{ "department":'Sales',"id":2}, {"department":'Engineer',"id":3},
-        //     {"department":'Finance',"id":4},{"department":'Others',"id":5}  ],
         departMentValue: [
             {"department":'HR',"id":1, isChecked:false},{ "department":'Sales',"id":2, isChecked:false}, {"department":'Engineer',"id":3, isChecked:false},
             {"department":'Finance',"id":4, isChecked:false},{"department":'Others',"id":5, isChecked:false}
@@ -67,7 +61,14 @@ useEffect(() => {
       .then((data) => {
         console.log("data is ", data.data.obj);
         let obj = data.data.obj;
-        setData(obj);
+        obj.department.map(empDept =>{
+            initialValue.departMentValue.map(dept => {
+            if(dept.department === empDept.department){
+            dept.isChecked = true;
+            }
+            })
+            })
+            setData(obj);
       })
       .catch((err) => {
         console.log("err is ", err);
@@ -76,18 +77,6 @@ useEffect(() => {
 const setData = (obj) => {
     let array = obj.startDate.split(" ");
     console.log(obj)
-    // let arrayname = obj.department.map(dept=>dept.department)
-    // let uncdepartment = initialValue.departMentValue
-    // for(let dept in obj.department){
-    //     if(arrayname.includes(dept.department)){
-    //         let newdept = {
-    //             department:dept.department,
-    //             id:dept.id,
-    //             isChecked:true
-    //         }
-    //        uncdepartment= initialValue.departMentValue.filter(dep=>dep.department == newdept.department).push(newdept)
-    //     }
-    // }
     setForm({
       ...formValue,
       ...obj,
@@ -95,8 +84,7 @@ const setData = (obj) => {
       gender:obj.gender,
       salary: obj.salary,
       profileUrl: obj.profile,
-      //departMentValue:obj.department,
-     departMentValue: initialValue.departMentValue,
+      departMentValue: initialValue.departMentValue,
       notes: obj.notes,
       isUpdate: true,
       Day: array[0],
@@ -105,16 +93,6 @@ const setData = (obj) => {
    });
   };
 
-// var checkDept = (department) => {
-//            let deptBool = false;
-//            formValue.departMentValue.map(dept => {
-//                            console.log('for '+formValue.departMentValue+''+dept,dept.department === department);
-//                 if(dept.department === department){
-//                    deptBool = true
-//                 }
-//                })
-//                return ""+deptBool;
-//        }
    const changeDepartmentHandler = (event) => {
     let checkedDepartment = [...formValue.departMentValue]
     console.log(checkedDepartment)
@@ -122,6 +100,7 @@ const setData = (obj) => {
         checkedDepartment[index] = {...checkedDepartment[index],isChecked:!checkedDepartment[index].isChecked}
         setForm({ ...formValue, departMentValue: checkedDepartment });
     }
+
     const nameRegex = RegExp("^[A-Z]{1}[a-zA-Z\\s]{2,}[A-Za-z\s]{0,}$");
     const handleNameChange=(event) =>{
             
@@ -135,7 +114,6 @@ const setData = (obj) => {
           }
           console.log({formValue})
           console.log({errorValue})
-        
 }
 
     const changeValue = (event) => {
@@ -143,20 +121,6 @@ const setData = (obj) => {
         setForm({ ...formValue, [event.target.name]: event.target.value })
     }
     
-    // const onCheckChange = (name) => {
-    //     console.log(name);
-    //     let index = formValue.departMentValue.indexOf(name);
-    //     let checkArray = [...formValue.departMentValue]
-    //     if (index > -1)
-    //         checkArray.splice(index, 1)
-    //     else
-    //         checkArray.push(name);
-    //     setForm({ ...formValue, departMentValue: checkArray });
-    // }
-    // const getChecked = (name) => {
-    //     return formValue.departMentValue && formValue.departMentValue.includes(name);
-    // }
-
     const validData = async () => {
         let isError = false;
         let error = {
@@ -167,25 +131,29 @@ const setData = (obj) => {
             profileUrl: '',
             startDate: ''
         }
-        if (formValue.name.length < 1) {
-            error.name = 'Please Enter your name'
-            isError = true;
-        }
+        
         if (formValue.gender.length < 1) {
             error.gender = 'Select your gender'
             isError = true;
         }
-        if (formValue.salary.length < 1) {
-            error.salary = 'Select the range from slider'
+        if (formValue.departMentValue.filter(dept=> (dept.isChecked==true)).length==0) {
+            error.department = 'Select atleast one department'
             isError = true;
         }
-        if (formValue.profileUrl.length < 1) {
-            error.profileUrl = 'Select profile image'
-            isError = true;
-        }
+        let enteredDate = new Date(formValue.Day+ " " + formValue.Month + " " + formValue.Year)
+        let currentDate = new Date();
+        let dateDifference = Math.ceil((currentDate-enteredDate))/(1000*60*60*24);
+        let currentDateFormat = currentDate.getDate() + "-" + (currentDate.getMonth()+1) + "-" + currentDate.getFullYear();
+        let priorDate = new Date(); 
+        priorDate.setDate(priorDate.getDate() - 30);
+        let priorDateFormat = priorDate.getDate() + "-" + (priorDate.getMonth()+1) + "-" + priorDate.getFullYear();
 
-        if (false) {
-            error.department = 'Select departments'
+        if( dateDifference > 30){
+            error.startDate = "Date should be between " + priorDateFormat + " and " + currentDateFormat;
+            isError = true;
+        }
+        if( dateDifference < 0){
+            error.startDate = "Date can not exceed present date."
             isError = true;
         }
         await setForm({ ...formValue, error: error })
@@ -210,8 +178,6 @@ const setData = (obj) => {
         
         let object = {
             name: formValue.name,
-
-            // department: [],
             department: ucdepartment,
             gender: formValue.gender,
             salary: formValue.salary,
@@ -222,10 +188,7 @@ const setData = (obj) => {
         };
 
         console.log(object);
-        // formValue.departMentValue.map((data) => {
-        //     object.department.push(data)});
-           
-          object.id = params.id
+           object.id = params.id
           if (formValue.isUpdate) {
             console.log(object);
             employeeService
@@ -329,16 +292,6 @@ const setData = (obj) => {
                                 <label class="text" htmlFor={dept.department}>{dept.department}</label>
                                 </div>)
                         }
-                    {/* <div> 
-                         {formValue.allDepartment.map(name =>(
-                            <span key ={name.department}>
-                                <input className = "checkbox" type = "checkbox"   onChange={() => onCheckChange(name)} name = {name.department} 
-                                checked={checkDept(name.department)==='true'} value ={name.department} />
-                        <label className = "text" htmlFor ={name.department}>{name.department}</label>
-                            </span>
-                        ))}
-                        
-                        </div> */}
                 </div>
                 <div className="error">{formValue.error.department}</div>
                 <div className = "row-content">

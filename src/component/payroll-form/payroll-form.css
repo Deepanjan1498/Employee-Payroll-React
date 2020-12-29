@@ -170,7 +170,7 @@ select {
     text-align: center;
   }
   .cancelButton:hover{
-    background-color:#707070;
+    background-color:rgb(247, 108, 108);
     box-shadow: 0 0 11px rgba(33,33,33,.2); 
   }
 
