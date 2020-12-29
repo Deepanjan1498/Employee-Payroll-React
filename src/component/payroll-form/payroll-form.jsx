@@ -88,12 +88,12 @@ const setData = (obj) => {
       notes: obj.notes,
       isUpdate: true,
       Day: array[0],
-     Month: array[1],
-     Year: array[2],
+      Month: array[1],
+      Year: array[2],
    });
   };
 
-   const changeDepartmentHandler = (event) => {
+const changeDepartmentHandler = (event) => {
     let checkedDepartment = [...formValue.departMentValue]
     console.log(checkedDepartment)
      let index = formValue.departMentValue.findIndex(dept => dept.department == event.target.name)
@@ -226,15 +226,15 @@ const setData = (obj) => {
    
     return(
         <div>
-      <header className = "header-content header">
-            <div className = "logo-content">
-            <img src ={logo} alt ="Logo" />
-                <div>
-                    <span className = "emp-text">EMPLOYEE</span><br/>
-                    <span className = "emp-text emp-payroll">PAYROLL</span>
+      <header className="header-content header">
+                <div className="logo-content">
+                    <img src={logo} alt="Logo" />
+                    <div>
+                        <span className="emp-text">EMPLOYEE</span><br />
+                        <span className="emp-text emp-payroll">PAYROLL</span>
+                    </div>
                 </div>
-            </div>
-        </header>
+            </header>
         <div className = "payroll-main">
         <div className ="form-content" id = "formId">
         <form className = "form" action = "#" onReset = "resetForm()" onSubmit = {save}>
