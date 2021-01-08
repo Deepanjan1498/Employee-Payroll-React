@@ -1,0 +1,42 @@
+{
+  "employee": [
+    {
+      "name": "Leena",
+      "department": [
+        "Sales",
+        "HR"
+      ],
+      "gender": "female",
+      "salary": "2000",
+      "startDate": "1 Jan 2020",
+      "notes": "START",
+      "id": 1604589594373,
+      "profile": "../assets/profile-images/Ellipse -7.png"
+    },
+    {
+      "name": "Devika",
+      "department": [
+        "Sales"
+      ],
+      "gender": "female",
+      "salary": "2100",
+      "startDate": "1 Jan 2020",
+      "notes": "",
+      "id": 1604589594374,
+      "profile": "../assets/profile-images/Ellipse -7.png"
+    },
+    {
+      "name": "Rahul",
+      "department": [
+        "HR",
+        "Finance"
+      ],
+      "gender": "male",
+      "salary": "2700",
+      "startDate": "1 Jan 2020",
+      "notes": "added",
+      "id": 1604589594375,
+      "profile": "../assets/profile-images/Ellipse -3.png"
+    }
+  ]
+}
