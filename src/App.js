@@ -16,7 +16,7 @@ class App extends React.Component{
       <Route path ="/home">
         <Home />
       </Route>
-      <Route exact path="/employee/:id">
+      <Route exact path={["/employee","/payroll-form/:id"]}>
             <PayrollForm />
           </Route>
           <Route exact path="">

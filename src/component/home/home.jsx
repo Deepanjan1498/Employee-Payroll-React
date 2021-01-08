@@ -1,10 +1,11 @@
 import React from "react";
-import searchIcon from "../payroll-form/assets/icons/search.jpg"
+import searchIcon from "../payroll-form/assets/icons/search.png"
 import addIcon from "../payroll-form/assets/icons/add-24px.svg"
 import "./home.scss";
 import EmployeeService from "../../services/employee-service"
 import Display from "../display/display"
 import logo from "../payroll-form/assets/images/logo.png"
+import { Link } from "react-router-dom";
 export default class Home extends React.Component {
   constructor(props) {
     super(props);
@@ -53,8 +54,8 @@ export default class Home extends React.Component {
   render() {
     return (
       <div>
-        <header className='header row center'>
-                <div className="logo">
+        <header className='header-content header'>
+                <div className="logo-content">
                     <img src={logo} alt="" />
                     <div>
                         <span className="emp-text">EMPLOYEE</span> <br />
@@ -65,24 +66,28 @@ export default class Home extends React.Component {
         <div className="column content">
           <div className="emp-detail">
             <div className="detail-text">
-              Employee Details <div className="count"></div>
+              Employee Details <div className="count">{this.state.employeeArray.length}</div>
             </div>
-            <div className="row center button-box">
-              <div className="search-box" onClick={this.openSearch}>
+            <div className="search-box" onClick={this.openSearch}>
                 <input
                   className={
                     "input " + (this.state.searchExpand && "input-expand")
                   }
                   onChange={this.search}
                   type="text"
-                  placeholder=""
+                  placeholder="Enter name to search"
                 />
                 <img className="search-icon" src={searchIcon} alt="" />
               </div>
-              <div>
-              <a href = "http://localhost:3000/employee"
-                button type="submit" className="add-button flex-row-center"/>
+            <div className="row center button-box">
+              
+            <div>
+                <a href = "http://localhost:3000/employee"  className="add-button flex-row-center">
+                < img src={addIcon} alt="Add User" /> Add User</a>
+                  
                 </div>
+              
+              
             </div>
           </div>
           <div className="table-main">

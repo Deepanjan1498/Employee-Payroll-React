@@ -1,44 +1,48 @@
-.header{
-    padding: 15px 0px;
-    background-color: #ffffff
+.payroll-main{
+    height: 100%;
+    margin: 0;
+    padding: 30px 0px;
 }
-.header-content{
+.header {
+    padding: 15px 0;
+    background-color: #ffffff;
+  }
+.header-content {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    border: 0px solid green
-}
-
-.logo-content{
+    border: 0px solid green;
+  }
+  
+.logo-content {
     display: flex;
     flex-direction: row;
     align-items: center;
     border: 0px solid green;
-    width: 80%
-}
-
-.logo-content > img{
-    border: 0px solid #42515f
-}
-.emp-text{
-    font: normal normal bold 20px/25px Montserrat;
-    font-family: "Montserrat", sans-serif;
+    width: 80%;
+  }
+  .emp-text {
+    font: normal normal bold 20px/25px MontSerrat;
+    font-family: "MontSerrat", sans-serif;
     letter-spacing: 0px;
     color: #82a70c;
     text-transform: capitalize;
-}
-
-.emp-payroll{
+  }
+  .emp-payroll {
     color: #42515f;
-}
+  }
+
+* {
+    box-sizing: border-box;
+  }
 .form-content{
     min-height: calc(100% - 80px);
     background-color: #f7f7f7;
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 2px solid green
+    border: 0px solid green
 }
 
 .form{
@@ -59,7 +63,10 @@
     opacity: 1;
     padding-bottom: 20px
 }
-
+/* img {
+    height: 50px;
+    margin-right: 5px;
+  } */
 .row-content{
     display: flex;
     flex-direction: row;
@@ -82,6 +89,8 @@ label{
     font-size: 16px;
     opacity: 1;
     font-family: Roboto;
+    text-align: left;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 .input{
@@ -117,6 +126,7 @@ select {
     letter-spacing: 0px;
     color: #42515f;
     background-color: transparent;
+    margin-right: 15px;
 }
 
 .buttonParent {
@@ -130,7 +140,7 @@ select {
     font-size: 20px;
     font-family: Roboto;
     letter-spacing: 0px;
-    color: #42515f;
+    color: black;
     opacity: 1;
     background: transparent;
     border: none;
@@ -141,18 +151,30 @@ select {
     cursor: pointer;
 }
 
-.submitButton {
-    border: none;
-    background-color: #f5f5f5;
-    margin-right: 10px;
-    border-radius: 10px;
-    border: 1px dashed royalblue;
-}
-
-.cancelButton {
+.resetButton:hover{
+    background-color:#707070;
+    color: white;
+    box-shadow: 0 0 11px rgba(33,33,33,.2); 
+  }
+  .submitButton{
+    border: black;
+    background-color: #ffffff;
+ margin-right: 30px;
+    
+  }
+  .submitButton:hover{
+    background-color:#82a70c;
+    color: white;
+    box-shadow: 0 0 11px rgba(33,33,33,.2); 
+  }
+  .cancelButton{
     text-decoration: none;
     text-align: center;
-}
+  }
+  .cancelButton:hover{
+    background-color:rgb(247, 108, 108);
+    box-shadow: 0 0 11px rgba(33,33,33,.2); 
+  }
 
 @media only screen and (max-width: 960px) {
     .cancelButton {
@@ -203,6 +225,7 @@ select {
         flex-direction: row-reverse;
         justify-content: space-between;
         margin-bottom: 20px;
+        color: crimson;
     }
     .submitButton {
         margin: 0;

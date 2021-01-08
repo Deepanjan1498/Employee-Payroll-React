@@ -12,23 +12,34 @@ const Display = (props) => {
     const employeeService = new EmployeeService();
   
     const update = (employeeId) => {
+      let result = window.confirm("Confirm update?")
+    if (result) {
       props.history.push(`payroll-form/${employeeId}`);
-    };
+    }
+    else {
+      window.location.reload();
+    }
+  };
   
-    const remove = (employeeId) => {
+  const remove = (employeeId) => {
+    let result = window.confirm("Are you sure you want to delete?")
+    if (result) {
       employeeService
         .deleteEmployee(employeeId)
         .then((data) => {
           console.log("data after delete", data);
+          window.location.reload();
           props.getAllEmployee();
         })
         .catch((err) => {
           console.log("error after delete", err);
         });
+      window.location.reload();
+    }
+    else {
+      window.location.reload();
+    }
     };
-//     const d = { element.department.map((dept) => {
-//       (<div className="dept-label">ABC</div>)
-// })}
   
     return (
       <table id="display" className="display">
@@ -48,26 +59,26 @@ const Display = (props) => {
                 <td><img className="profile" 
                 src={
                   element.profile ===
-                  "../payroll-form/assets/profile-images/Ellipse -1.png"
+                  "../assets/profile-images/Ellipse -1.png"
                     ? p
                     : element.profile ===
-                      "../payroll-form/assets/profile-images/Ellipse -3.png"
+                      "../assets/profile-images/Ellipse -3.png"
                     ? p1
                     : element.profile ===
-                      "../payroll-form/assets/profile-images/Ellipse -7.png"
+                      "../assets/profile-images/Ellipse -7.png"
                     ? p2
                     : p3
                 }
-                alt=""
+                alt="element.profile"
               />
                 </td>
                 <td>{element.name}</td>
                 <td className="gender">{element.gender}</td>
-                <td>
-                 {/* // {element.department && */}
-                   { element.department.map((dept) => {
-                      (<div className="dept-label">Sales</div>)
-})}
+                <td >
+              
+                 {element.department && 
+                    element.department.map(dept =>(<div className='dept-label'>{dept.department}</div>))}
+
                 </td>
                 <td> ₹ {element.salary}</td>
                 <td>{element.startDate}</td>
